@@ -6,86 +6,203 @@
 <title>OCS NFI Periodik Job Desk & Job Request</title>
 
 <style>
-  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#f4f6f8; margin:0; color: #333; overflow-x: hidden; }
-  header { background:#1976d2; color:white; padding:20px; text-align:center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+  /* Material 3 Dark Theme Colors (Hijau) */
+  :root {
+    --md-sys-color-background: #1a1c19;
+    --md-sys-color-on-background: #e2e3dd;
+    --md-sys-color-surface: #222620;
+    --md-sys-color-on-surface: #e2e3dd;
+    --md-sys-color-surface-variant: #424940;
+    --md-sys-color-on-surface-variant: #c2c8bc;
+    --md-sys-color-primary: #b0d1ab;
+    --md-sys-color-on-primary: #1d371c;
+    --md-sys-color-primary-container: #334e31;
+    --md-sys-color-on-primary-container: #cceda6;
+    --md-sys-color-secondary-container: #3e4b3c;
+    --md-sys-color-on-secondary-container: #dbe7d3;
+    --md-sys-color-error: #ffb4ab;
+    --md-sys-color-outline: #8c9388;
+    --whatsapp-green: #25d366;
+  }
+
+  body { 
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+    background: var(--md-sys-color-background); 
+    margin: 0; 
+    color: var(--md-sys-color-on-background); 
+    overflow-x: hidden; 
+  }
   
-  .container { padding:15px; max-width: 600px; margin: auto; padding-bottom: 80px; }
+  .container { 
+    padding: 15px; 
+    max-width: 600px; 
+    margin: auto; 
+    padding-bottom: 80px; 
+    margin-top: 10px; 
+  }
   
   /* FILTER SECTION */
-  .filter-container { background: white; padding: 15px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-  .filter { display:flex; flex-wrap:wrap; gap:10px; }
-  .filter-group { flex: 1; min-width: 120px; }
-  .filter-group label { font-size: 11px; font-weight: bold; color: #888; display: block; margin-bottom: 5px; text-transform: uppercase; }
-  .filter select, .filter input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; font-size: 14px; box-sizing: border-box; background: #fafafa; }
-
-  .loading { text-align:center; color:#666; padding:40px; font-style: italic; }
-
-  /* CARD STYLE */
-  .card { background:white; border-radius:14px; padding:18px; margin-bottom:15px; box-shadow:0 4px 12px rgba(0,0,0,0.06); border-left:6px solid #1976d2; position: relative; }
-  .card-header { display:flex; justify-content:space-between; align-items: flex-start; margin-bottom: 12px; }
-  .date { font-weight:bold; color:#1976d2; font-size: 13px; }
-  .job { font-size:16px; font-weight:bold; flex: 1; color: #222; }
+  .filter-container { 
+    background: var(--md-sys-color-surface); 
+    padding: 16px; 
+    border-radius: 16px; 
+    margin-bottom: 24px; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    border: 1px solid var(--md-sys-color-surface-variant);
+  }
+  .filter { display: flex; flex-direction: column; gap: 16px; }
   
-  .card-content { font-size:14px; line-height:1.7; margin-bottom:15px; color: #555; }
-  .label { font-weight: 600; color:#999; width: 150px; display: inline-block; }
+  .filter-row { display: flex; gap: 12px; }
+  .filter-group { flex: 1; }
+  
+  .filter-group label { 
+    font-size: 11px; 
+    font-weight: 600; 
+    color: var(--md-sys-color-primary); 
+    display: block; 
+    margin-bottom: 6px; 
+    text-transform: uppercase; 
+    letter-spacing: 0.5px;
+  }
+  .filter select, .filter input { 
+    width: 100%; 
+    padding: 12px; 
+    border-radius: 8px; 
+    border: 1px solid var(--md-sys-color-outline); 
+    font-size: 14px; 
+    box-sizing: border-box; 
+    background: var(--md-sys-color-surface-variant); 
+    color: var(--md-sys-color-on-surface);
+  }
+  .filter select:focus, .filter input:focus { 
+    border-color: var(--md-sys-color-primary); 
+    outline: none; 
+    box-shadow: 0 0 0 2px var(--md-sys-color-primary-container);
+  }
+
+  /* Search Input Specific */
+  #searchKeyword {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%23b0d1ab" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>');
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    padding-left: 40px;
+  }
+
+  .loading { text-align: center; color: var(--md-sys-color-on-surface-variant); padding: 40px; font-style: italic; }
+
+  /* CARD STYLE - MATERIAL 3 ELEVATED */
+  .card { 
+    background: var(--md-sys-color-surface); 
+    border-radius: 16px; 
+    padding: 20px; 
+    margin-bottom: 16px; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+    border: 1px solid var(--md-sys-color-surface-variant);
+    position: relative; 
+    transition: transform 0.2s ease;
+  }
+  .card:active { transform: scale(0.98); }
+
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+  .date { 
+    font-weight: 600; 
+    color: var(--md-sys-color-on-primary-container); 
+    font-size: 12px; 
+    background: var(--md-sys-color-primary-container);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .job { font-size: 18px; font-weight: bold; flex: 1; color: var(--md-sys-color-on-surface); line-height: 1.4; }
+  
+  .card-content { font-size: 14px; line-height: 1.6; margin-bottom: 20px; color: var(--md-sys-color-on-surface-variant); }
+  .label { font-weight: 600; color: var(--md-sys-color-primary); width: 110px; display: inline-block; }
   
   /* BUTTON UTAMA */
   .btn-lapor-trigger {
-    display: block; background:#25d366; color:white; padding:12px; border-radius:8px;
-    font-size:14px; text-align: center; text-decoration:none; font-weight: bold; cursor: pointer; border: none; width: 100%;
+    display: block; 
+    background: var(--md-sys-color-primary); 
+    color: var(--md-sys-color-on-primary); 
+    padding: 14px; 
+    border-radius: 12px;
+    font-size: 14px; 
+    text-align: center; 
+    text-decoration: none; 
+    font-weight: bold; 
+    cursor: pointer; 
+    border: none; 
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   }
+  .btn-lapor-trigger:hover { filter: brightness(1.1); }
 
   /* BOTTOM SHEET */
   .bottom-sheet-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5); display: none; z-index: 1000;
+    background: rgba(0,0,0,0.7); display: none; z-index: 1000;
+    backdrop-filter: blur(2px);
   }
   .bottom-sheet {
     position: fixed; bottom: -100%; left: 0; width: 100%;
-    background: white; border-top-left-radius: 20px; border-top-right-radius: 20px;
-    padding: 20px; box-sizing: border-box; transition: bottom 0.3s ease; z-index: 1001;
-    box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+    background: var(--md-sys-color-surface); 
+    border-top-left-radius: 28px; border-top-right-radius: 28px;
+    padding: 24px; box-sizing: border-box; transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1001;
+    border-top: 1px solid var(--md-sys-color-surface-variant);
   }
   .bottom-sheet.active { bottom: 0; }
-  .sheet-title { font-weight: bold; font-size: 16px; margin-bottom: 15px; text-align: center; color: #444; }
-  .sheet-buttons { display: flex; flex-direction: column; gap: 10px; }
+  .sheet-title { font-weight: bold; font-size: 18px; margin-bottom: 20px; text-align: center; color: var(--md-sys-color-on-surface); }
+  .sheet-buttons { display: flex; flex-direction: column; gap: 12px; }
   .btn-target {
-    padding: 15px; border-radius: 10px; border: 1px solid #ddd; background: #f9f9f9;
-    font-size: 15px; font-weight: bold; text-align: center; cursor: pointer; color: #333; text-decoration: none;
+    padding: 16px; border-radius: 12px; border: 1px solid var(--md-sys-color-outline); 
+    background: var(--md-sys-color-secondary-container);
+    font-size: 15px; font-weight: 600; text-align: center; cursor: pointer; 
+    color: var(--md-sys-color-on-secondary-container); text-decoration: none;
   }
-  .btn-target:hover { background: #eef2ff; border-color: #1976d2; color: #1976d2; }
-  .btn-close { margin-top: 10px; padding: 10px; text-align: center; color: #999; cursor: pointer; font-size: 14px; }
+  .btn-target:hover { background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
+  .btn-close { margin-top: 16px; padding: 10px; text-align: center; color: var(--md-sys-color-on-surface-variant); cursor: pointer; font-size: 14px; }
 
   /* KONDISI HARI INI */
-  .card.today { border-left-color: #d32f2f; background: #fff9f9; }
-  .card.today .date { color:#d32f2f; }
-  .empty-state { text-align: center; padding: 40px; color: #999; }
+  .card.today { 
+    border: 1px solid var(--md-sys-color-primary); 
+    background: rgba(176, 209, 171, 0.08); 
+  }
+  .card.today .date { 
+    background: var(--md-sys-color-primary); 
+    color: var(--md-sys-color-on-primary); 
+    font-weight: bold;
+  }
+  
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--md-sys-color-on-surface-variant); }
 </style>
 </head>
 
 <body>
 
-<header>
-  <h2 style="margin:0; font-size: 1.2rem;">OCS NFI Periodik Job Desk & Job Request</h2>
-</header>
-
 <div class="container">
   <div class="filter-container">
     <div class="filter">
+      <!-- Row 1: Pencarian Keyword -->
       <div class="filter-group">
-        <label>Pilih Tanggal</label>
-        <input type="date" id="filterTanggal">
+        <label>Cari Pekerjaan / Member / Area</label>
+        <input type="text" id="searchKeyword" placeholder="Ketik kata kunci...">
       </div>
-      <div class="filter-group">
-        <label>Pilih Area</label>
-        <select id="filterArea">
-          <option value="">Semua Area</option>
-        </select>
+      
+      <!-- Row 2: Tanggal dan Area -->
+      <div class="filter-row">
+        <div class="filter-group">
+          <label>Tanggal</label>
+          <input type="date" id="filterTanggal">
+        </div>
+        <div class="filter-group">
+          <label>Area</label>
+          <select id="filterArea">
+            <option value="">Semua Area</option>
+          </select>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="loading" id="loading">Memuat data terbaru...</div>
+  <div class="loading" id="loading">Memperbarui jadwal...</div>
   <div id="cards"></div>
 </div>
 
@@ -127,11 +244,9 @@ function normalizeDate(str){
   return str;
 }
 
-// FUNGSI BOTTOM SHEET
 function openSheet(job, area, tanggal, member) {
-  currentSelectedMsg = encodeURIComponent(`*LAPORAN PEKERJAAN*\n\n📌 *Tugas:* ${job}\n📍 *Area:* ${area}\n📅 *Tanggal:* ${tanggal}\n👥 *Member:* ${member}\n\nLaporan selesai dilaksanakan.`);
+  currentSelectedMsg = encodeURIComponent(`*LAPORAN PEKERJAAN*\n\n✅ *Tugas:* ${job}\n📍 *Area:* ${area}\n📅 *Tanggal:* ${tanggal}\n👤 *Member:* ${member}\n\nLaporan selesai dilaksanakan.`);
   
-  // Set URL WhatsApp khusus untuk masing-masing tombol
   document.getElementById('btnPohara').href = `https://wa.me/${WA_POHARA}?text=${currentSelectedMsg}`;
   document.getElementById('btnSadulloh').href = `https://wa.me/${WA_SADULLOH}?text=${currentSelectedMsg}`;
   
@@ -148,6 +263,7 @@ function renderCards() {
   const container = document.getElementById("cards");
   const fTanggal = document.getElementById("filterTanggal").value;
   const fArea = document.getElementById("filterArea").value;
+  const fKeyword = document.getElementById("searchKeyword").value.toLowerCase();
   const todayStr = new Date().toISOString().slice(0,10);
   
   let html = "";
@@ -155,11 +271,17 @@ function renderCards() {
   const filteredData = allCards.filter(item => {
     const matchDate = fTanggal ? item.tanggal === fTanggal : true;
     const matchArea = fArea ? item.area.toLowerCase() === fArea.toLowerCase() : true;
-    return matchDate && matchArea;
+    const matchKeyword = fKeyword ? (
+      item.job.toLowerCase().includes(fKeyword) || 
+      item.member.toLowerCase().includes(fKeyword) || 
+      item.area.toLowerCase().includes(fKeyword)
+    ) : true;
+    
+    return matchDate && matchArea && matchKeyword;
   });
 
   if(filteredData.length === 0){
-    html = `<div class="empty-state">Jadwal tidak ditemukan.</div>`;
+    html = `<div class="empty-state">Tidak ada jadwal yang sesuai.</div>`;
   } else {
     filteredData.forEach((item) => {
       const isToday = item.tanggal === todayStr ? "today" : "";
@@ -173,10 +295,10 @@ function renderCards() {
         <div class="card-content">
           <div><span class="label">Area</span>: ${item.area}</div>
           <div><span class="label">Member</span>: ${item.member}</div>
-          <div><span class="label">Durasi jam pengerjaan</span>: ${item.durasi}</div>
+          <div><span class="label">Durasi</span>: ${item.durasi}</div>
           <div><span class="label">Team Leader</span>: ${item.ditugaskan}</div>
         </div>
-        <button class="btn-lapor-trigger" onclick="openSheet('${item.job}', '${item.area}', '${item.tanggal}', '${item.member}')">Laporkan pekerjaan</button>
+        <button class="btn-lapor-trigger" onclick="openSheet('${item.job}', '${item.area}', '${item.tanggal}', '${item.member}')">Laporkan Selesai</button>
       </div>
       `;
     });
@@ -187,7 +309,6 @@ function renderCards() {
 document.getElementById('sheetOverlay').addEventListener('click', closeSheet);
 document.getElementById('btnCloseSheet').addEventListener('click', closeSheet);
 
-// Ketika tombol nama diklik, tutup sheet setelah jeda singkat
 document.getElementById('btnPohara').addEventListener('click', () => setTimeout(closeSheet, 500));
 document.getElementById('btnSadulloh').addEventListener('click', () => setTimeout(closeSheet, 500));
 
@@ -218,13 +339,15 @@ fetch(CSV_URL)
     renderCards();
   })
   .catch(err => {
-    document.getElementById("loading").innerText = "Gagal memuat data.";
+    document.getElementById("loading").innerText = "Gagal memuat data dari server.";
   });
 
 document.getElementById("filterTanggal").addEventListener("change", renderCards);
 document.getElementById("filterArea").addEventListener("change", renderCards);
+document.getElementById("searchKeyword").addEventListener("input", renderCards);
 
 </script>
 
 </body>
 </html>
+
