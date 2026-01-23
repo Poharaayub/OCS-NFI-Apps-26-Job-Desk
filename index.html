@@ -6,22 +6,22 @@
 <title>OCS NFI Periodik Job Desk & Job Request</title>
 
 <style>
-  /* Material 3 Dark Theme Colors (Hijau) */
+  /* Material 3 Dark Theme Colors (Purple/Violet) */
   :root {
-    --md-sys-color-background: #1a1c19;
-    --md-sys-color-on-background: #e2e3dd;
-    --md-sys-color-surface: #222620;
-    --md-sys-color-on-surface: #e2e3dd;
-    --md-sys-color-surface-variant: #424940;
-    --md-sys-color-on-surface-variant: #c2c8bc;
-    --md-sys-color-primary: #b0d1ab;
-    --md-sys-color-on-primary: #1d371c;
-    --md-sys-color-primary-container: #334e31;
-    --md-sys-color-on-primary-container: #cceda6;
-    --md-sys-color-secondary-container: #3e4b3c;
-    --md-sys-color-on-secondary-container: #dbe7d3;
-    --md-sys-color-error: #ffb4ab;
-    --md-sys-color-outline: #8c9388;
+    --md-sys-color-background: #1c1b1f;
+    --md-sys-color-on-background: #e6e1e5;
+    --md-sys-color-surface: #25232a;
+    --md-sys-color-on-surface: #e6e1e5;
+    --md-sys-color-surface-variant: #49454f;
+    --md-sys-color-on-surface-variant: #cac4d0;
+    --md-sys-color-primary: #d0bcff;
+    --md-sys-color-on-primary: #381e72;
+    --md-sys-color-primary-container: #4f378b;
+    --md-sys-color-on-primary-container: #eaddff;
+    --md-sys-color-secondary-container: #332d41;
+    --md-sys-color-on-secondary-container: #e8def8;
+    --md-sys-color-error: #f2b8b5;
+    --md-sys-color-outline: #938f99;
     --whatsapp-green: #25d366;
   }
 
@@ -80,9 +80,9 @@
     box-shadow: 0 0 0 2px var(--md-sys-color-primary-container);
   }
 
-  /* Search Input Specific */
+  /* Search Input Specific (Stroke changed to Primary Purple) */
   #searchKeyword {
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%23b0d1ab" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>');
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%23d0bcff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>');
     background-repeat: no-repeat;
     background-position: 10px center;
     padding-left: 40px;
@@ -163,7 +163,7 @@
   /* KONDISI HARI INI */
   .card.today { 
     border: 1px solid var(--md-sys-color-primary); 
-    background: rgba(176, 209, 171, 0.08); 
+    background: rgba(208, 188, 255, 0.08); 
   }
   .card.today .date { 
     background: var(--md-sys-color-primary); 
@@ -180,13 +180,11 @@
 <div class="container">
   <div class="filter-container">
     <div class="filter">
-      <!-- Row 1: Pencarian Keyword -->
       <div class="filter-group">
         <label>Cari Pekerjaan / Member / Area</label>
         <input type="text" id="searchKeyword" placeholder="Ketik kata kunci...">
       </div>
       
-      <!-- Row 2: Tanggal dan Area -->
       <div class="filter-row">
         <div class="filter-group">
           <label>Tanggal</label>
@@ -217,7 +215,6 @@
 </div>
 
 <script>
-// KONFIGURASI NOMOR WHATSAPP
 const WA_POHARA = "6289637126728";
 const WA_SADULLOH = "6285281587927";
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSy72yhzMb2711VnnX-K1x6DG2-HNdlGRJfeORikr4x6ylI5ETjTaEjXzJ4KR0a632i65ZJpq667B-t/pub?output=csv";
